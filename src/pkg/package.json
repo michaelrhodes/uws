@@ -1,0 +1,8 @@
+{
+  "name": "uws",
+  "version": "18.4.0",
+  "main": "main.js",
+  "scripts": {
+    "install": "node install.js"
+  }
+}

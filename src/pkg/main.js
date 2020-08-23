@@ -16,18 +16,13 @@
  */
 
 module.exports = (() => {
-	try {
-		const uWS = require('./uws_' + process.platform + '_' + process.arch + '_' + process.versions.modules + '.node');
-		if (process.env.EXPERIMENTAL_FASTCALL) {
-			process.nextTick = (f, ...args) => {
-				Promise.resolve().then(() => {
-					f(...args);
-				});
-			};
-		}
-		process.on('exit', uWS.free);
-		return uWS;
-	} catch (e) {
-		throw new Error('This version of µWS is not compatible with your Node.js build:\n\n' + e.toString());
-	}
+  try {
+    const bin = require('./bin');
+    const uws = require('./' + bin);
+    process.on('exit', uws.free);
+    return uws;
+  }
+  catch (e) {
+    throw new Error('This version of µWS is not compatible with your Node.js build:\n\n' + e.toString());
+  }
 })();
